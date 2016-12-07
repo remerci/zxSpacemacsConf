@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: map_lambda
+# key: map
+# --
+map(lambda x: ${1:webbrowser.open(x)}, urls)
+$0

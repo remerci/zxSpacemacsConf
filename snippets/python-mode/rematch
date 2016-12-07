@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rematch
+# key: rematch
+# --
+if not re.compile(r"(http|https)://www.zhihu.com/question/\d{8}").match(url):
+    raise ValueError("\"" + url + "\"" + " : it isn't a question url.")

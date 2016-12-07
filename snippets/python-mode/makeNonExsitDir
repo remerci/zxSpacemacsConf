@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: makeNonExsitDir
+# key: makedir
+# --
+if not os.path.exists($1):
+    os.makedirs($1)
+$0
