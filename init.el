@@ -28,7 +28,8 @@ values."
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
-   ;; List of configuration layers to load.
+   ;; List of configuration layers to load. If it is the symbol `all' instead
+   ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
      ivy
@@ -70,8 +71,8 @@ values."
       react
       (python :variables
               python-test-runner '(nose pytest))
-      (ruby :variables ruby-version-manager 'chruby)
-      ruby-on-rails
+      ;(ruby :variables ruby-version-manager 'chruby)
+      ;ruby-on-rails
       lua
       html
       javascript
@@ -82,11 +83,19 @@ values."
       (clojure :variables clojure-enable-fancify-symbols t)
       racket
       (c-c++ :variables
-             c-c++-default-mode-for-headers 'c++-mode)
+             c-c++-default-mode-for-headers 'c++-mode
+		c-c++-enable-clang-support t)
       zilongshanren
       (chinese :packages youdao-dictionary fcitx
-               :variables chinese-enable-fcitx nil
-               chinese-enable-youdao-dict t)
+               :variables chinese-enable-fcitx t
+		chinese-default-input-method 'wubi
+               	chinese-enable-youdao-dict t)
+     ;; ----------------------------------------------------------------
+     ;; zx private conf
+     neworg
+     zxcalendar
+     ipython-notebook
+     ;; ;; ==============zzxx=============
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -114,7 +123,7 @@ values."
                         window-purpose ivy-purpose helm-purpose spacemacs-purpose-popwin
                         )
    dotspacemacs-install-packages 'used-only
-   dotspacemacs-delete-orphan-packages t))
+   dotspacemacs-delete-orphan-packages nil))
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -174,14 +183,19 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-light
-                         solarized-dark)
-   ;; If non nil the cursor color matches the state color in GUI Emacs.
+   dotspacemacs-themes '(solarized-dark
+                         solarized-light
+                         spacemacs-light
+                         spacemacs-dark
+                         leuven
+                         monokai
+                         zenburn)
+   ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 14
+   dotspacemacs-default-font '("YaHei Consolas Hybrid";"Source Code Pro, WenQuanYi Micro Hei Mono";
+                               :size 15
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -313,7 +327,7 @@ values."
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
-   dotspacemacs-smart-closing-parenthesis nil
+   dotspacemacs-smart-closing-parenthesis t
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -338,7 +352,7 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
-  (setq configuration-layer--elpa-archives
+  (setq configurationm-layer--elpa-archives
         '(("melpa-cn" . "https://elpa.zilongshanren.com/melpa/")
           ("org-cn"   . "https://elpa.zilongshanren.com/org/")
           ("gnu-cn"   . "https://elpa.zilongshanren.com/gnu/")))
@@ -355,10 +369,56 @@ values."
   (setq warning-minimum-level :error)
   ;; hack for remove purpose mode
   (setq purpose-mode nil)
-  )
+  ;; =============zx============
+  (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+  ;========== additional info search path ==========
+  (setq Info-additional-directory-list '("/usr/share/info/"))
+  ;========== frame maximized ==========
+  ;; (add-hook 'after-init-hook '(lambda () (w32-send-sys-command #xf030)))
+  ;; (when window-system (set-frame-size (selected-frame) 100 44))
+  ;; (setq default-frame-alist '((width . 100) (height . 55)))
+  ;; (setq initial-frame-alist '((top . 1) (left . 1) (width . 80) (height . 55)))
+  ;; (toggle-frame-maximized)
+  ;========== package archives list ==========
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+  ;;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+  ;; (add-to-list 'yas-snippet-dirs "/home/myth/MyBackup/confs/yasnippet-snippets-collection/")
+  
+  ;; yas current line
+  ;; (defun yasnippet-current-line ();; C-c TAB
+  ;;   (interactive)
+  ;;   (let ((current-line (string-trim-right (thing-at-point 'line t))))
+  ;;     (end-of-line)
+  ;;     (newline-and-indent)
+  ;;     (yas-expand-snippet (yasnippet-string-to-template (string-trim current-line)))))
+
+  ;; (defun yasnippet-string-to-template (string)
+  ;;   (let ((count 1))
+  ;;     (labels ((rep (text)
+  ;;                   (let ((replace (format "${%d:%s}" count text)))
+  ;;                     (incf count)
+  ;;                     replace)))
+  ;;       (replace-regexp-in-string "[a-zA-Z0-9]+" #'rep string))))
+  ;; (global-set-key (kbd "C-c TAB") 'yasnippet-current-line)
+  ;; ==============zzxx=============
+)
 
 (defun dotspacemacs/user-config ()
-  ;;解决org表格里面中英文对齐的问题
+  ;; ==============zx=============
+  ;(spacemacs//set-monospaced-font   "Source Code Pro" "WenQuanYi Micro Hei Mono" 15 14)
+  ;(spacemacs//set-monospaced-font   "YaHei Consolas Hybrid" "YaHei Consolas Hybrid" 16 16)
+  (setq mouse-yank-at-point t);在光标位置而不是鼠标点击位置插入剪贴板内容。
+  (mouse-avoidance-mode 'animate);光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。很好玩阿，这个功能
+  (auto-image-file-mode t);打开图片显示功能
+  (setq user-full-name "Zhao Xin");个人信息
+  (setq user-mail-address "zhaoxin_remerci@gmail.com");个人信息
+  (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
+  (setq sentence-end-double-space nil);设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。
+  ;(setq face-font-rescale-alist '(("Source Code Pro" . 1.0) ("WenQuanYi Micro Hei" . 1.23)))
+  ;; ==============zzxx=============
+;;解决org表格里面中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mac) window-system)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
