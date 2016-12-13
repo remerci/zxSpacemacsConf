@@ -21,7 +21,7 @@
 (global-set-key (kbd "s-/") 'hippie-expand)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
-(define-key global-map (kbd "<f9>") 'org-capture)
+;; (define-key global-map (kbd "<f9>") 'org-capture)
 (define-key global-map (kbd "C-c t") 'org-capture)
 (define-key global-map (kbd "<f8>") 'zilongshanren/show-current-buffer-major-mode)
 
@@ -74,7 +74,7 @@
 (bind-key* "C-c l" 'zilongshanren/insert-chrome-current-tab-url)
 ;; (bind-key* "M-s o" 'occur-dwim)
 (bind-key* "C-=" 'er/expand-region)
-(bind-key* "M--" 'zilongshanren/goto-match-paren)
+;; (bind-key* "M--" 'zilongshanren/goto-match-paren)
 (bind-key* "C-c k" 'which-key-show-top-level)
 (bind-key* "s-y" 'aya-expand)
 ;; (bind-key* "C-l" 'recenter)

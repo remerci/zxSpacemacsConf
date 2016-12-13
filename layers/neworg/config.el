@@ -16,7 +16,7 @@
 (global-set-key (kbd "<f9> t") 'org-toggle-inline-images)
 
 ;; global conf
-(add-hook 'org-mode-hook 'smartparens-mode)
+;; (add-hook 'org-mode-hook 'smartparens-mode)
 
                                         ;====================
                                         ; capture, agenda, tag variables
