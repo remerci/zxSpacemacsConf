@@ -33,17 +33,17 @@ values."
    dotspacemacs-configuration-layers
    '(
      ivy
-      better-defaults
-      github
-      ranger
-      colors
-      prodigy
-      search-engine
-      graphviz
-      (syntax-checking :variables syntax-checking-enable-by-default nil
-                       syntax-checking-enable-tooltips nil)
-      (spell-checking :variables spell-checking-enable-by-default nil)
-      (vinegar :variables vinegar-reuse-dired-buffer t)
+     better-defaults
+     github
+     ranger
+     colors
+     prodigy
+     search-engine
+     graphviz
+     (syntax-checking :variables syntax-checking-enable-by-default nil
+                      syntax-checking-enable-tooltips nil)
+     (spell-checking :variables spell-checking-enable-by-default nil)
+     (vinegar :variables vinegar-reuse-dired-buffer t)
      (spacemacs-layouts :variables layouts-enable-autosave nil
                         layouts-autosave-delay 300)
       (git :variables
@@ -71,8 +71,8 @@ values."
       react
       (python :variables
               python-test-runner '(nose pytest))
-      ;(ruby :variables ruby-version-manager 'chruby)
-      ;ruby-on-rails
+      (ruby :variables ruby-version-manager 'chruby)
+      ruby-on-rails
       lua
       html
       javascript
@@ -83,8 +83,7 @@ values."
       (clojure :variables clojure-enable-fancify-symbols t)
       racket
       (c-c++ :variables
-             c-c++-default-mode-for-headers 'c++-mode
-		c-c++-enable-clang-support t)
+             c-c++-default-mode-for-headers 'c++-mode)
       zilongshanren
       (chinese ;; :packages youdao-dictionary fcitx
                :variables chinese-enable-fcitx t
@@ -106,22 +105,22 @@ values."
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages
    '(magit-gh-pulls magit-gitflow org-projectile evil-mc
-                        evil-args evil-ediff evil-exchange evil-unimpaired
-                        evil-indent-plus volatile-highlights smartparens
-                        spaceline holy-mode skewer-mode rainbow-delimiters
-                        highlight-indentation vi-tilde-fringe eyebrowse
-                        org-bullets smooth-scrolling org-repo-todo org-download org-timer
-                        livid-mode git-gutter git-gutter-fringe  evil-escape
-                        leuven-theme gh-md evil-lisp-state spray lorem-ipsum
-                        ac-ispell ace-jump-mode auto-complete auto-dictionary
-                        clang-format define-word google-translate disaster epic
-                        fancy-battery neotree org-present orgit orglue spacemacs-theme
-                        helm-flyspell flyspell-correct-helm clean-aindent-mode
-                        helm-c-yasnippet ace-jump-helm-line helm-make
-                        helm-themes helm-swoop helm-spacemacs-help smeargle
-                        ido-vertical-mode flx-ido company-quickhelp counsel-projectile
-                        window-purpose ivy-purpose helm-purpose spacemacs-purpose-popwin
-                        )
+                    evil-args evil-ediff evil-exchange evil-unimpaired
+                    evil-indent-plus volatile-highlights smartparens
+                    spaceline holy-mode skewer-mode rainbow-delimiters
+                    highlight-indentation vi-tilde-fringe eyebrowse
+                    org-bullets smooth-scrolling org-repo-todo org-download org-timer
+                    livid-mode git-gutter git-gutter-fringe  evil-escape
+                    leuven-theme gh-md evil-lisp-state spray lorem-ipsum
+                    ac-ispell ace-jump-mode auto-complete auto-dictionary
+                    clang-format define-word google-translate disaster epic
+                    fancy-battery org-present orgit orglue spacemacs-theme
+                    helm-flyspell flyspell-correct-helm clean-aindent-mode
+                    helm-c-yasnippet ace-jump-helm-line helm-make
+                    helm-themes helm-swoop helm-spacemacs-help smeargle
+                    ido-vertical-mode flx-ido company-quickhelp counsel-projectile
+                    window-purpose ivy-purpose helm-purpose spacemacs-purpose-popwin
+                    )
    dotspacemacs-install-packages 'used-only
    dotspacemacs-delete-orphan-packages nil))
 
