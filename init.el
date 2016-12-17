@@ -86,10 +86,10 @@ values."
              c-c++-default-mode-for-headers 'c++-mode
 		c-c++-enable-clang-support t)
       zilongshanren
-      (chinese :packages youdao-dictionary fcitx
+      (chinese ;; :packages youdao-dictionary fcitx
                :variables chinese-enable-fcitx t
-		chinese-default-input-method 'wubi
-               	chinese-enable-youdao-dict t)
+               chinese-default-input-method 'wubi
+               chinese-enable-youdao-dict t)
      ;; ----------------------------------------------------------------
      ;; zx private conf
      neworg
@@ -275,7 +275,7 @@ values."
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
    ;; (default 'bottom)
-   dotspacemacs-which-key-position 'bottom
+   dotspacemacs-which-key-position 'right-then-bottom
    ;; Control where `switch-to-buffer' displays the buffer. If nil,
    ;; `switch-to-buffer' displays the buffer in the current window even if
    ;; another same-purpose window is available. If non nil, `switch-to-buffer'
@@ -409,8 +409,8 @@ values."
 
 (defun dotspacemacs/user-config ()
   ;; ==============zx=============
-  ;(spacemacs//set-monospaced-font   "Source Code Pro" "WenQuanYi Micro Hei Mono" 15 14)
-  ;(spacemacs//set-monospaced-font   "YaHei Consolas Hybrid" "YaHei Consolas Hybrid" 16 16)
+  ;; (spacemacs//set-monospaced-font   "Source Code Pro" "WenQuanYi Micro Hei Mono" 15 14)
+  ;; (spacemacs//set-monospaced-font   "YaHei Consolas Hybrid" "YaHei Consolas Hybrid" 16 16)
   (setq mouse-yank-at-point t);在光标位置而不是鼠标点击位置插入剪贴板内容。
   (mouse-avoidance-mode 'animate);光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。很好玩阿，这个功能
   (auto-image-file-mode t);打开图片显示功能
@@ -418,7 +418,10 @@ values."
   (setq user-mail-address "zhaoxin_remerci@gmail.com");个人信息
   (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
   (setq sentence-end-double-space nil);设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。
-  ;(setq face-font-rescale-alist '(("Source Code Pro" . 1.0) ("WenQuanYi Micro Hei" . 1.23)))
+  ;; (setq face-font-rescale-alist '(("Source Code Pro" . 1.0) ("WenQuanYi Micro Hei" . 1.23)))
+  ;; (which-key-setup-side-window-right-bottom)
+  (which-key-setup-minibuffer)
+  (setq max-mini-window-height 0.4)
   ;; ==============zzxx=============
 ;;解决org表格里面中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)

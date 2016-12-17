@@ -22,7 +22,7 @@
                                             ("8zh" "@~chinese")
                                             ("8sp" "spacemacs")
                                             ;; email
-                                            ("8me" "guanghui8827@gmail.com")
+                                            ("8me" "zhaoxin.remerci@gmail.com")
 
                                             ;; computing tech
                                             ("8wp" "Wikipedia")
@@ -37,9 +37,10 @@
 
                                             ;; signature
                                             ("8zl" "zilongshanren")
+                                            ("8re" "remerci")
                                             ;; emacs regex
                                             ("8d" "\\([0-9]+?\\)")
                                             ("8str" "\\([^\"]+?\\)\"")))
 
 
-(setq user-mail-address "guanghui8827@gmail.com")
+(setq user-mail-address "zhaoxin.remerci@gmail.com")
