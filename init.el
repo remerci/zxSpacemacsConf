@@ -184,11 +184,12 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(solarized-dark
                          solarized-light
-                         spacemacs-light
-                         spacemacs-dark
-                         leuven
-                         monokai
-                         zenburn)
+                         ;; spacemacs-light
+                         ;; spacemacs-dark
+                         ;; leuven
+                         ;; monokai
+                         ;; zenburn
+                         )
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -426,6 +427,10 @@ values."
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mac) window-system)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
+
+  (when (configuration-layer/layer-usedp 'chinese)
+    (when (and (spacemacs/system-is-linux) window-system)
+      (spacemacs//set-monospaced-font "Dejavu Sans Mono" "WenQuanyi Micro Hei Mono" 14 16)))
 
   ;; Setting Chinese Font
   (when (and (spacemacs/system-is-mswindows) window-system)
