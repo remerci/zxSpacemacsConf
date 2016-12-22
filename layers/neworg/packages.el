@@ -109,6 +109,8 @@
                "* TODO %? \t:#pJys:\n%U" :clock-resume t)
               ("n" "note" entry (file+headline "/windata/notes/org/GTD/mythStudy.org" "QuickNotes")
                "* %f%? \n%i\n" :clock-resume t)
+              ("q" "quicknote" item (clock)
+               "+ %i" :clock-resume t)
               ("l" "links" entry (file+headline "/windata/notes/org/GTD/mythStudy.org" "QuickNotes")
                "* %?\n%i\n%a\n%U" :clock-resume t)
               ("j" "Journal" entry (file+datetree "/windata/notes/org/GTD/diary.org")
@@ -126,8 +128,8 @@
               ;;  "* TODO %? :qyk:\n%U" :clock-resume t)
               ;; ("z" "work zzy" entry (file+headline "/windata/notes/org/GTD/TODO.org" "Work")
               ;;  "* TODO %? :zzy:\n%U" :clock-resume t)
+              ;; "* NEXT %? :habit:\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1w/10d>>\")\n:PROPERTIES:\n:REPEAT_TO_STAT/WINDATA NEXT\n:END:\n"))))
               )))
-               ;; "* NEXT %? :habit:\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1w/10d>>\")\n:PROPERTIES:\n:REPEAT_TO_STAT/WINDATA NEXT\n:END:\n"))))
 
 ;; Custom agenda command definitions
 (setq customStr "-STYLE=\"habit\"-SCHEDULED<>\"<now>\"-DEADLINE<>\"<now>\"")

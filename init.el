@@ -94,6 +94,7 @@ values."
      neworg
      zxcalendar
      ipython-notebook
+     zxw3m
      ;; ;; ==============zzxx=============
      )
    ;; List of additional packages that will be installed without being
@@ -387,6 +388,11 @@ values."
   ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
   ;; (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
   ;; (add-to-list 'yas-snippet-dirs "/home/myth/MyBackup/confs/yasnippet-snippets-collection/")
+  ;; ========== w3m ==========
+  (setq browse-url-browser-function 'w3m-browse-url)
+  ;; Browse url function use w3m
+  (setq w3m-view-this-url-new-session-in-background t)
+  ;; W3M view url new session in background
 
   ;; yas current line
   ;; (defun yasnippet-current-line ();; C-c TAB
