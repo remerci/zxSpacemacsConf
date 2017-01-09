@@ -109,7 +109,7 @@
                "* TODO %? \t:#pJys:\n%U" :clock-resume t)
               ("n" "note" entry (file+headline "/windata/notes/org/GTD/mythStudy.org" "QuickNotes")
                "* %f%? \n%i\n" :clock-resume t)
-              ("q" "quicknote" item (clock)
+              ("k" "quicknote" item (clock)
                "+ %i" :clock-resume t)
               ("l" "links" entry (file+headline "/windata/notes/org/GTD/mythStudy.org" "QuickNotes")
                "* %?\n%i\n%a\n%U" :clock-resume t)
