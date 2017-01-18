@@ -478,6 +478,7 @@ unwanted space when exporting org-mode to html."
         " <link rel='stylesheet' href='/windata/notes/publish/org_notes/public_html/Acss/main.css' type='text/css'/> \n
     <link rel=\"stylesheet\" type=\"text/css\" href=\"/windata/notes/publish/org_notes/public_html/Acss/prettify.css\"/>")
 
+      (setq org-export-with-sub-superscripts '{})
       (setq org-publish-project-alist
             `(
               ("blog-notes"
@@ -492,7 +493,8 @@ unwanted space when exporting org-mode to html."
                :auto-preamble t
                :exclude "gtd.org"
                :exclude-tags ("ol" "noexport")
-               :section-numbers nil
+               :section-numbers t
+               ;; :sub-superscript {}
                :html-preamble ,zilongshanren-website-html-preamble
                :author "remerci"
                :email "zhaoxin.remerci@gmail.com"
