@@ -110,7 +110,7 @@
               ("n" "note" entry (file+headline "/windata/notes/org/GTD/MythStudy.org" "QuickNotes")
                "* %f%? \n%i\n" :clock-resume t)
               ("k" "quicknote" item (clock)
-               "+ %i" :immediate-finish t)
+               "%i" :immediate-finish t)
               ("l" "links" entry (file+headline "/windata/notes/org/GTD/MythStudy.org" "QuickNotes")
                "* %?\n%i\n%a\n%U" :clock-resume t)
               ("j" "Journal" entry (file+datetree "/windata/notes/org/GTD/diary.org")
@@ -469,22 +469,22 @@ unwanted space when exporting org-mode to html."
       (defvar zilongshanren-website-html-preamble
         "<div class='nav'>
 <ul>
-<li><a href='http://zilongshanren.com'>博客</a></li>
-<li><a href='/index.html'>Wiki目录</a></li>
+<li><a href='http://remerci.com'>博客</a></li>
+<li><a href='/windata/notes/publish/org_notes/public_html/index.html'>Wiki目录</a></li>
 </ul>
 </div>")
 
       (defvar zilongshanren-website-html-blog-head
-        " <link rel='stylesheet' href='css/site.css' type='text/css'/> \n
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"/css/worg.css\"/>")
+        " <link rel='stylesheet' href='/windata/notes/publish/org_notes/public_html/Acss/main.css' type='text/css'/> \n
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"/windata/notes/publish/org_notes/public_html/Acss/prettify.css\"/>")
 
       (setq org-publish-project-alist
             `(
               ("blog-notes"
                :base-directory "/windata/notes/org/notes/"
                :base-extension "org"
-               :publishing-directory "/windata/notes/org/public_html/"
-
+               :publishing-directory "/windata/notes/publish/org_notes/public_html/"
+               :preserve-breaks t
                :recursive t
                :html-head , zilongshanren-website-html-blog-head
                :publishing-function org-html-publish-to-html
@@ -503,9 +503,9 @@ unwanted space when exporting org-mode to html."
                :sitemap-file-entry-format "%t" ; %d to output date, we don't need date here
                )
               ("blog-static"
-               :base-directory "~/org-notes"
+               :base-directory "/windata/notes/org/notes/"
                :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-               :publishing-directory "~/org-notes/public_html/"
+               :publishing-directory "/windata/notes/publish/org_notes/public_html/"
                :recursive t
                :publishing-function org-publish-attachment
                )
