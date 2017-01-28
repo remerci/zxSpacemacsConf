@@ -364,6 +364,19 @@ values."
   ;; (setq tramp-mode nil)
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+  ;; http://lifegoo.pluskid.org/wiki/EmacsTRAMP.html
+  ;; tramp default settings
+  (setq tramp-default-method "scp")
+  ;; (add-to-list 'tramp-default-method-alist '("hiwifi" "root" "scp"))
+  ;; (add-to-list 'tramp-default-method-alist
+  ;;             '("\\`localhost\\'" "\\`root\\'" "su"))
+  (setq tramp-default-user "root")
+  ;; (add-to-list 'tramp-default-user-alist
+  ;;              '("ssh" ".*\\.somewhere\\.else\\'" "john"))
+  ;; (add-to-list 'tramp-default-user-alist
+  ;;              '("ssh" "\\`here\\.somewhere\\.else\\'" nil))
+  (setq tramp-default-user "root"
+        tramp-default-host "hiwifi")
 
   ;; ss proxy. But it will cause anacond-mode failed.
   (setq socks-server '("Default server" "127.0.0.1" 1080 5))
@@ -374,15 +387,15 @@ values."
   (setq purpose-mode nil)
   ;; =============zx============
   (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
-  ;========== additional info search path ==========
+                                        ;========== additional info search path ==========
   (setq Info-additional-directory-list '("/usr/share/info/"))
-  ;========== frame maximized ==========
+                                        ;========== frame maximized ==========
   ;; (add-hook 'after-init-hook '(lambda () (w32-send-sys-command #xf030)))
   ;; (when window-system (set-frame-size (selected-frame) 100 44))
   ;; (setq default-frame-alist '((width . 100) (height . 55)))
   ;; (setq initial-frame-alist '((top . 1) (left . 1) (width . 80) (height . 55)))
   ;; (toggle-frame-maximized)
-  ;========== package archives list ==========
+                                        ;========== package archives list ==========
   ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
   ;;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
   ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -411,7 +424,7 @@ values."
   ;;       (replace-regexp-in-string "[a-zA-Z0-9]+" #'rep string))))
   ;; (global-set-key (kbd "C-c TAB") 'yasnippet-current-line)
   ;; ==============zzxx=============
-)
+  )
 
 (defun dotspacemacs/user-config ()
   ;; ==============zx=============
