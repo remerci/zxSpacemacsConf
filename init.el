@@ -430,19 +430,22 @@ values."
   ;; ==============zx=============
   ;; (spacemacs//set-monospaced-font   "Source Code Pro" "WenQuanYi Micro Hei Mono" 15 14)
   ;; (spacemacs//set-monospaced-font   "YaHei Consolas Hybrid" "YaHei Consolas Hybrid" 16 16)
-  (setq mouse-yank-at-point t);在光标位置而不是鼠标点击位置插入剪贴板内容。
-  (mouse-avoidance-mode 'animate);光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。很好玩阿，这个功能
-  (auto-image-file-mode t);打开图片显示功能
-  (setq user-full-name "Zhao Xin");个人信息
-  (setq user-mail-address "zhaoxin_remerci@gmail.com");个人信息
+  (setq mouse-yank-at-point t)     ;在光标位置而不是鼠标点击位置插入剪贴板内容。
+  (mouse-avoidance-mode 'animate) ;光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。很好玩阿，这个功能
+  (auto-image-file-mode t)        ;打开图片显示功能
+  (setq user-full-name "Zhao Xin")                     ;个人信息
+  (setq user-mail-address "zhaoxin_remerci@gmail.com") ;个人信息
   (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
-  (setq sentence-end-double-space nil);设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。
+  (setq sentence-end-double-space nil) ;设置 sentence-end 可以识别中文标点。不用在 fill 时在句号后插入两个空格。
   ;; (setq face-font-rescale-alist '(("Source Code Pro" . 1.0) ("WenQuanYi Micro Hei" . 1.23)))
   ;; (which-key-setup-side-window-right-bottom)
   (which-key-setup-minibuffer)
   (setq max-mini-window-height 0.4)
+
+  ;; (run-at-time "08:40" 86400 '(lambda () (load-theme 'solarized-light t)))
+  ;; (run-at-time "18:00" 86400 '(lambda () (load-theme 'solarized-dark t)))
   ;; ==============zzxx=============
-;;解决org表格里面中英文对齐的问题
+  ;;解决org表格里面中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mac) window-system)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))

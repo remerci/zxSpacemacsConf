@@ -100,7 +100,7 @@
                :clock-resume t
                :empty-lines 1)
               ("t" "todo" entry (file+headline "/windata/notes/org/GTD/Inbox.org" "Petty")
-               "* NEXT %?\n%U\n" :clock-resume t)
+               "* NEXT %?\n" :clock-resume t)
               ("m" "work myth" entry (file+headline "/windata/notes/org/GTD/Inbox.org" "mythStudy")
                "* TODO %? \t:#pMyth:\n%U"
                :clock-resume t
@@ -494,7 +494,8 @@ unwanted space when exporting org-mode to html."
                :exclude "gtd.org"
                :exclude-tags ("ol" "noexport")
                :section-numbers t
-               ;; :sub-superscript {}
+
+               :sub-superscript {}
                :html-preamble ,zilongshanren-website-html-preamble
                :author "remerci"
                :email "zhaoxin.remerci@gmail.com"
