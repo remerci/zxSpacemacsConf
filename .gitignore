@@ -1,5 +1,6 @@
 # old files
 trash
-layers/zxchinese/local/
-layers/zxw3m/local/
-*.un~
+layers/zxchinese/local/eim/*.pl
+layers/zxw3m/local/w3m/*
+*.bak
+*.*~
