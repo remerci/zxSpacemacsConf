@@ -14,4 +14,3 @@
 (global-set-key (kbd "<f9> h") 'bh/hide-other)
 (global-set-key (kbd "<f9> l") 'org-toggle-link-display)
 (global-set-key (kbd "<f9> t") 'org-toggle-inline-images)
-

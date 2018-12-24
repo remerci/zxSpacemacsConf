@@ -8,7 +8,11 @@
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
-;;; Licens/windata GPLv3
+;;; License GPLv3
+
+(setq noteRootStr "e:/notes")
+(setq gtdStr (concat noteRootStr "/org/GTD"))
+(setq noteStr (concat noteRootStr "/org/notes"))
 
 ;; List of all packages to install and/or initialize. Built-in packages
 ;; which require an initialization must be listed explicitly in the list.
@@ -16,6 +20,7 @@
     '(
       ;; package names go here
       (org :location built-in)
+      ;; org-octopress
       ;; org-id
       ;; bbdb
       ;; bbdb-com
@@ -39,11 +44,28 @@
 ;;   )
 ;;
 ;; Often the body of an initialize function uses `use-package'
-;; For more info on `use-package', see readm/windata
+;; For more info on `use-package', see readme
 ;; https://github.com/jwiegley/use-package
 
-;;In order to export pdf to support Chinese, I should install Latex at her/windata https://www.tug.org/mactex/
-;; http://freizl.github.io/posts/2012-04-06-export-orgmode-file-in-Chinese.html
+(defun neworg/init-org-octopress ()
+  (use-package org-octopress
+    :commands (org-octopress org-octopress-setup-publish-project)
+    :init
+    (progn
+      (evilified-state-evilify org-octopress-summary-mode org-octopress-summary-mode-map)
+      (add-hook 'org-octopress-summary-mode-hook
+                #'(lambda () (local-set-key (kbd "q") 'bury-buffer)))
+      (setq org-blog-dir (concat noteRootStr "/publish/github/octopress/source/"))
+      (setq org-octopress-directory-top org-blog-dir)
+      (setq org-octopress-directory-posts (concat org-blog-dir "_posts"))
+      (setq org-octopress-directory-org-top org-blog-dir)
+      (setq org-octopress-directory-org-posts (concat org-blog-dir "blog"))
+      (setq org-octopress-setup-file (concat noteRootStr "/publish/github/setupfile.org"))
+
+      )))
+
+;;In order to export pdf to support Chinese, I should install Latex at here https://www.tug.org/mactex/
+;; http:/ereizl.github.io/posts/2012-04-06-export-orgmode-file-in-Chinese.html
 ;;http://stackoverflow.com/questions/21005885/export-org-mode-code-block-and-result-with-different-styles
 (defun neworg/post-init-org ()
   (with-eval-after-load 'org
@@ -57,7 +79,8 @@
       (setq org-agenda-use-tag-inheritance nil) ;; 3-4x speedup
       (setq org-agenda-window-setup 'current-window)
       (setq org-log-done t)
-
+      ;; (add-hook 'org-mode-hook )
+      (define-key org-mode-map [(meta return)] 'org-meta-return)
       ;; ====================加密文章====================
       ;; "http://coldnew.github.io/blog/2013/07/13_5b094.html"
       ;; org-mode 設定
@@ -99,41 +122,43 @@
                "* TODO %?\n%U"
                :clock-resume t
                :empty-lines 1)
-              ("t" "todo" entry (file+headline "/windata/notes/org/GTD/Inbox.org" "Petty")
+              ("t" "todo" entry (file+headline (concat gtdStr "/Inbox.org") "Petty")
                "* NEXT %?\n" :clock-resume t)
-              ("m" "work myth" entry (file+headline "/windata/notes/org/GTD/Inbox.org" "mythStudy")
+              ("r" "work ResearchDev" entry (file+headline (concat gtdStr "/WorkStudy.org") "ResearchDevelop")
                "* TODO %? \t:#pMyth:\n%U"
                :clock-resume t
                :empty-lines 1)
-              ("w" "work jys" entry (file+headline "/windata/notes/org/GTD/Inbox.org" "workStudy")
+              ("j" "work jys" entry (file+headline (concat gtdStr "/WorkStudy.org") "jys")
                "* TODO %? \t:#pJys:\n%U" :clock-resume t)
-              ("n" "note" entry (file+headline "/windata/notes/org/GTD/MythStudy.org" "QuickNotes")
+              ("e" "work lesson" entry (file+headline (concat gtdStr "/WorkStudy.org") "lesson")
+               "* TODO %? \t:#pJys:\n%U" :clock-resume t)
+              ("n" "note" entry (file+headline (concat gtdStr "/MythStudy.org") "QuickNotes")
                "* %f%? \n%i\n" :clock-resume t)
               ("k" "quicknote" item (clock)
                "%i" :immediate-finish t)
-              ("l" "links" entry (file+headline "/windata/notes/org/GTD/MythStudy.org" "QuickNotes")
+              ("l" "links" entry (file+headline (concat gtdStr "/MythStudy.org") "QuickNotes")
                "* %?\n%i\n%a\n%U" :clock-resume t)
-              ("j" "Journal" entry (file+datetree "/windata/notes/org/GTD/diary.org")
-               "* %?" :clock-resume t)
-              ("a" "account" table-line (file+headline "/windata/notes/org/memo.org" "accounts")
+              ("a" "account" table-line (file+headline (concat noteStr "/memo.org") "accounts")
                "| %? |  |  |" :clock-resume t)
-              ;; ("h" "Habit" entry (file+headline "/windata/notes/org/GTD/mythStudy.org" "periodical")
-              ;;  "* TODO %?\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYL/WINDATA habit\n:END:\n")
-              ;; "* NEXT %?\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYL/WINDATA habit\n:REPEAT_TO_STAT/WINDATA NEXT\n:END:\n")
-              ;; ("H" "HouseWork" entry (file+headline "/windata/notes/org/GTD/TODO.org" "house work")
-              ;;  "* TODO %? :hous/windata\n%U\n" :clock-resume t)
-              ;; ("x" "HeXuan" entry (file+headline "/windata/notes/org/GTD/mythStudy.org" "zhx")
+              ("d" "Journal" entry (file+datetree (concat gtdStr "/diary.org"))
+               "* %?" :clock-resume t)
+              ;; ("h" "Habit" entry (file+headline (concat gtdStr /mythStudy.org") "periodical")
+              ;;  "* TODO %?\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE habit\n:END:\n")
+              ;; "* NEXT %?\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE habit\n:REPEAT_TO_STATE NEXT\n:END:\n")
+              ;; ("H" "HouseWork" entry (file+headline (concat gtdStr /TODO.org") "house work")
+              ;;  "* TODO %? :house\n%U\n" :clock-resume t)
+              ;; ("x" "HeXuan" entry (file+headline (concat gtdStr /mythStudy.org") "zhx")
               ;;  "* TODO %? :zhx:\n%U\n" :clock-resume t)
-              ;; ("q" "work qyk" entry (file+headline "/windata/notes/org/GTD/TODO.org" "Work")
+              ;; ("q" "work qyk" entry (file+headline (concat gtdStr /TODO.org") "Work")
               ;;  "* TODO %? :qyk:\n%U" :clock-resume t)
-              ;; ("z" "work zzy" entry (file+headline "/windata/notes/org/GTD/TODO.org" "Work")
+              ;; ("z" "work zzy" entry (file+headline (concat gtdStr /TODO.org") "Work")
               ;;  "* TODO %? :zzy:\n%U" :clock-resume t)
-              ;; "* NEXT %? :habit:\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1w/10d>>\")\n:PROPERTIES:\n:REPEAT_TO_STAT/WINDATA NEXT\n:END:\n"))))
+              ;; "* NEXT %? :habit:\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1w/10d>>\")\n:PROPERTIES:\n:REPEAT_TO_STATE NEXT\n:END:\n"))))
               )))
 
 ;; Custom agenda command definitions
 (setq customStr "-STYLE=\"habit\"-SCHEDULED<>\"<now>\"-DEADLINE<>\"<now>\"")
-(setq mythStr (concat customStr "-SOMEDAY-TODO-REFILE"))
+(setq mythStr (concat customStr "-SOMEDAY-WAITING-TODO-REFILE"))
 (setq org-agenda-custom-commands
       (quote (
               ;; ("n" "Notes" tags "notes"
@@ -146,11 +171,12 @@
               ;; ("r" "refile" tags-todo "REFILE")
               ("p" "项目安排"
                ((agenda "")
-                (tags-todo "REFILE")
+                (tags-todo (concat "REFILE" customStr))
                 (tags-todo (concat "+#pMyth" mythStr)
                            ((org-agenda-sorting-strategy '(priority-down todo-state-down))))
-                (tags-todo (concat "+#pJys" mythStr "|+#pZzy" mythStr "|+#pQyk" mythStr))
-                (tags-todo "WAITING")
+                (tags-todo (concat "+#pJys" mythStr "|+#pQyk" mythStr))
+                ;; (tags-todo "WAITING+WorkStudy | SOMEDAY+WorkStudy")
+                (tags-todo "SOMEDAY-#pMyth|WAITING|TODO-#pMyth")
                 ;; (tags-todo (concat "+qyk" pString))
                 ;; (tags-todo (concat "+{jys\|zzy}" pString))
                 ;; (tags-todo (concat "+zhx" pString "|+house" pString))
@@ -159,16 +185,16 @@
               ("w" "任务安排"
                (
                 (tags-todo (concat "-#pMyth-#pQyk-#pZzy-#pJys-zhx-house" mythStr))
-                (tags-todo (concat "SOMEDAY" customStr))
-                (tags-todo (concat "TODO" customStr))
+                (tags-todo (concat "SOMEDAY-#pJys" customStr))
+                (tags-todo (concat "TODO-#pJys" customStr))
                 ))
               )))
 
                                         ;====================
                                         ; capture
                                         ;====================
-(setq org-directory "/windata/notes/org/GTD")
-(setq org-default-notes-file "/windata/notes/org/GTD/mythStudy.org")
+(setq org-directory gtdStr)
+(setq org-default-notes-file (concat gtdStr "/mythStudy.org"))
 
 ;; I use C-c c to start capture mode
 (global-set-key (kbd "C-c c") 'org-capture)
@@ -176,9 +202,8 @@
                                         ;====================
                                         ; agenda
                                         ;====================
-  (setq org-agenda-files (quote ("/windata/notes/org/GTD"
-                                 "/windata/notes/org/notes"
-                                 )))
+  (setq org-agenda-files (list gtdStr noteStr))
+
   (setq org-todo-keywords
         (quote (
                 (sequence "DOING(i)" "NEXT(n)" "TODO(t)" "SOMEDAY(s@/!)" "WAITING(w@/!)" "|" "DONE(d)")
@@ -217,7 +242,7 @@
 (setq org-stuck-projects (quote ("+PROJECT+LEVEL<4/-DONE" ("TODO" "NEXT") nil "")))
 
 ;; only show today's agenda
-(setq org-agenda-span 'day)
+(setq org-agenda-span 'week)
 ;; set show items in agenda with l(log) cmd
 (setq org-agenda-log-mode-items '(closed clock))
 
@@ -239,10 +264,10 @@
                (output-string "")
                (tstart (or tstart
                            (and timerange (equal timerange-numeric-value 4) (- (org-time-today) 86400))
-                           (and timerange (equal timerange-numeric-value 16) (org-read-date nil nil nil "Start Date/Tim/windata"))
+                           (and timerange (equal timerange-numeric-value 16) (org-read-date nil nil nil "Start Date/Time"))
                            (org-time-today)))
                (tend (or tend
-                         (and timerange (equal timerange-numeric-value 16) (org-read-date nil nil nil "End Date/Tim/windata"))
+                         (and timerange (equal timerange-numeric-value 16) (org-read-date nil nil nil "End Date/Time"))
                          (+ tstart 86400)))
                h m file item prompt donesomething)
           (while (setq file (pop files))
@@ -351,16 +376,15 @@
 
 (setq org-refile-use-outline-path t)
 (setq org-outline-path-complete-in-steps nil)
-;; (setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5) (("/windata/notes/org/tool.org" "/windata/notes/org/env.org" "/windata/notes/org/dev.org" "/windata/notes/org/research.org" "/windata/notes/org/life.org" "/windata/notes/org/res.org" "/windata/notes/org/life.org") :maxlevel . 5))))
-;(directory-files "/windata/notes/org/notes/" t "\\..*")
-(setq org-refile-files (directory-files "/windata/notes/org/notes/" t ".org"))
+;; (directory-files noteStr t "\\..*")
+(setq org-refile-files (directory-files noteStr t ".org"))
 (setq org-refile-targets (quote ((nil :maxlevel . 3) (org-agenda-files :maxlevel . 2) (org-refile-files :maxlevel . 3))))
 
                                         ;====================
                                         ; archive
                                         ;====================
 (setq org-archive-mark-done nil)
-(setq org-archive-location "%s_archiv/windata:* Archived Tasks")
+(setq org-archive-location "%s_archive:* Archived Tasks")
 (defun bh/skip-non-archivable-tasks ()
   "Skip trees that are not available for archiving"
   (save-restriction
@@ -436,7 +460,7 @@
                                         ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
       ;; {{ export org-mode in Chinese into PDF
-      ;; @see http://freizl.github.io/posts/tech/2012-04-06-export-orgmode-file-in-Chinese.html
+      ;; @see http://reizl.github.io/posts/tech/2012-04-06-export-orgmode-file-in-Chinese.html
       ;; and you need install texlive-xetex on different platforms
       ;; To install texlive-xetex:
       ;;    `sudo USE="cjk" emerge texlive-xetex` on Gentoo Linux
@@ -459,7 +483,7 @@
         "Join consecutive Chinese lines into a single long line without
 unwanted space when exporting org-mode to html."
         (let* ((origin-contents (ad-get-arg 1))
-               (fix-regexp "[[:multibyt/windata]]")
+               (fix-regexp "[[:multibyte]]")
                (fixed-contents
                 (replace-regexp-in-string
                  (concat
@@ -469,22 +493,23 @@ unwanted space when exporting org-mode to html."
       (defvar zilongshanren-website-html-preamble
         "<div class='nav'>
 <ul>
-<li><a href='http://remerci.com'>博客</a></li>
-<li><a href='/windata/notes/publish/org_notes/public_html/index.html'>Wiki目录</a></li>
+<li><a href='http://remerci.github.io'>博客</a></li>
+<li><a href='f:/notes/publish/org_notes/public_html/index.html'>Wiki目录</a></li>
 </ul>
 </div>")
 
       (defvar zilongshanren-website-html-blog-head
-        " <link rel='stylesheet' href='/windata/notes/publish/org_notes/public_html/Acss/main.css' type='text/css'/> \n
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"/windata/notes/publish/org_notes/public_html/Acss/prettify.css\"/>")
+        " <link rel='stylesheet' href='f:/notes/publish/org_notes/public_html/Acss/worg.css' type='text/css'/> \n
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"f:/notes/publish/org_notes/public_html/Acss/autumn.css\"/> \n
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"f:/notes/publish/org_notes/public_html/Acss/prettify.css\"/>")
 
       (setq org-export-with-sub-superscripts '{})
       (setq org-publish-project-alist
             `(
               ("blog-notes"
-               :base-directory "/windata/notes/org/notes/"
+               :base-directory noteStr
                :base-extension "org"
-               :publishing-directory "/windata/notes/publish/org_notes/public_html/"
+               :publishing-directory (concat noteRootStr "/publish/org_notes/public_html/")
                :preserve-breaks t
                :recursive t
                :html-head , zilongshanren-website-html-blog-head
@@ -506,9 +531,9 @@ unwanted space when exporting org-mode to html."
                :sitemap-file-entry-format "%t" ; %d to output date, we don't need date here
                )
               ("blog-static"
-               :base-directory "/windata/notes/org/notes/"
+               :base-directory noteStr
                :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-               :publishing-directory "/windata/notes/publish/org_notes/public_html/"
+               :publishing-directory (concat noteRootStr "/publish/org_notes/public_html/")
                :recursive t
                :publishing-function org-publish-attachment
                )

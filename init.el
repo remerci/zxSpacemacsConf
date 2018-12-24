@@ -20,6 +20,7 @@ values."
    ;; installation feature and you have to explicitly list a layer in the
    ;; variable `dotspacemacs-configuration-layers' to install it.
    ;; (default 'unused)
+   dotspacemacs-elpa-timeout 299
    dotspacemacs-enable-lazy-installation nil
    ;; If non-nil then Spacemacs will ask for confirmation before installing
    ;; a layer lazily. (default t)
@@ -39,7 +40,7 @@ values."
      colors
      prodigy
      search-engine
-     graphviz
+     ;; graphviz
      (syntax-checking :variables syntax-checking-enable-by-default nil
                       syntax-checking-enable-tooltips nil)
      (spell-checking :variables spell-checking-enable-by-default nil)
@@ -101,7 +102,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(sicp)
+   ;; dotspacemacs-additional-packages '(sicp)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages
@@ -296,7 +297,7 @@ values."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup t
+   ;; dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -402,9 +403,9 @@ values."
   ;; (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
   ;; (add-to-list 'yas-snippet-dirs "/home/myth/MyBackup/confs/yasnippet-snippets-collection/")
   ;; ========== w3m ==========
-  (setq browse-url-browser-function 'w3m-browse-url)
+  ;; (setq browse-url-browser-function 'w3m-browse-url)
   ;; Browse url function use w3m
-  (setq w3m-view-this-url-new-session-in-background t)
+  ;; (setq w3m-view-this-url-new-session-in-background t)
   ;; W3M view url new session in background
 
   ;; yas current line
@@ -430,6 +431,7 @@ values."
   ;; ==============zx=============
   ;; (spacemacs//set-monospaced-font   "Source Code Pro" "WenQuanYi Micro Hei Mono" 15 14)
   ;; (spacemacs//set-monospaced-font   "YaHei Consolas Hybrid" "YaHei Consolas Hybrid" 16 16)
+  (org-defkey org-mode-map [(meta return)] 'org-meta-return)
   (setq mouse-yank-at-point t)     ;在光标位置而不是鼠标点击位置插入剪贴板内容。
   (mouse-avoidance-mode 'animate) ;光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。很好玩阿，这个功能
   (auto-image-file-mode t)        ;打开图片显示功能
@@ -462,7 +464,7 @@ values."
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
-                        (font-spec :family "Microsoft Yahei" :size 14))))
+                        (font-spec :family "Yahei Consolas Hybrid" :size 16))))
 
   (fset 'evil-visual-update-x-selection 'ignore)
 
