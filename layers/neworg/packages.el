@@ -113,35 +113,30 @@
                                         ; capture, agenda, tag variables
                                         ;====================
 
-(setq org-tag-persistent-alist '(("#pMyth" . ?m) ("#pJys" . ?j) ("#gWiz" . ?w) ("#gRIL" . ?r) ("#aNotes" . ?n)))
-
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
-      (quote (
+      `(("t" "todo" entry (file+headline ,(concat gtdStr "/Inbox.org") "Other")
+               "* NEXT %?\n" :clock-resume t)
+              ("r" "work RD" entry (file+headline ,(concat gtdStr "/Inbox.org") "RD")
+               "* NEXT %?\n%U"
+               :clock-resume t
+               :empty-lines 1)
+              ("j" "work jys" entry (file+headline ,(concat gtdStr "/Inbox.org") "Teach")
+               "* NEXT %?\n%U" :clock-resume t)
+              ("n" "note" entry (file+headline ,(concat gtdStr "/MythStudy.org") "QuickNotes")
+               "* %f%? \n%i\n" :clock-resume t)
+              ("l" "links" entry (file+headline ,(concat gtdStr "/MythStudy.org") "QuickNotes")
+               "* %?\n%i\n%a\n%U" :clock-resume t)
+              ("a" "account" table-line (file+headline ,(concat noteStr "/memo.org") "accounts")
+               "| %? |  |  |" :clock-resume t)
+              ("d" "Journal" entry (file+datetree ,(concat gtdStr "/diary.org"))
+               "* %?" :clock-resume t)
+              ("k" "quicknote" item (clock)
+               "%i" :immediate-finish t)
               ("c" "New Task in Now Work" entry (clock)
                "* TODO %?\n%U"
                :clock-resume t
                :empty-lines 1)
-              ("t" "todo" entry (file+headline (concat gtdStr "/Inbox.org") "Petty")
-               "* NEXT %?\n" :clock-resume t)
-              ("r" "work ResearchDev" entry (file+headline (concat gtdStr "/WorkStudy.org") "ResearchDevelop")
-               "* TODO %? \t:#pMyth:\n%U"
-               :clock-resume t
-               :empty-lines 1)
-              ("j" "work jys" entry (file+headline (concat gtdStr "/WorkStudy.org") "jys")
-               "* TODO %? \t:#pJys:\n%U" :clock-resume t)
-              ("e" "work lesson" entry (file+headline (concat gtdStr "/WorkStudy.org") "lesson")
-               "* TODO %? \t:#pJys:\n%U" :clock-resume t)
-              ("n" "note" entry (file+headline (concat gtdStr "/MythStudy.org") "QuickNotes")
-               "* %f%? \n%i\n" :clock-resume t)
-              ("k" "quicknote" item (clock)
-               "%i" :immediate-finish t)
-              ("l" "links" entry (file+headline (concat gtdStr "/MythStudy.org") "QuickNotes")
-               "* %?\n%i\n%a\n%U" :clock-resume t)
-              ("a" "account" table-line (file+headline (concat noteStr "/memo.org") "accounts")
-               "| %? |  |  |" :clock-resume t)
-              ("d" "Journal" entry (file+datetree (concat gtdStr "/diary.org"))
-               "* %?" :clock-resume t)
               ;; ("h" "Habit" entry (file+headline (concat gtdStr /mythStudy.org") "periodical")
               ;;  "* TODO %?\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE habit\n:END:\n")
               ;; "* NEXT %?\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE habit\n:REPEAT_TO_STATE NEXT\n:END:\n")
@@ -154,7 +149,10 @@
               ;; ("z" "work zzy" entry (file+headline (concat gtdStr /TODO.org") "Work")
               ;;  "* TODO %? :zzy:\n%U" :clock-resume t)
               ;; "* NEXT %? :habit:\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1w/10d>>\")\n:PROPERTIES:\n:REPEAT_TO_STATE NEXT\n:END:\n"))))
-              )))
+              ))
+
+(setq org-tag-persistent-alist '(("#myth" . ?m) ("#outWork" . ?o) ("#teach" . ?t) ("#rd" . ?r) ("#life" . ?l)
+                                 ("%think" . ?k) ("%notes" . ?n)))
 
 ;; Custom agenda command definitions
 (setq customStr "-STYLE=\"habit\"-SCHEDULED<>\"<now>\"-DEADLINE<>\"<now>\"")
@@ -172,11 +170,12 @@
               ("p" "项目安排"
                ((agenda "")
                 (tags-todo (concat "REFILE" customStr))
-                (tags-todo (concat "+#pMyth" mythStr)
+                (tags-todo (concat "+#myth" mythStr "|+#life" mythStr)
                            ((org-agenda-sorting-strategy '(priority-down todo-state-down))))
-                (tags-todo (concat "+#pJys" mythStr "|+#pQyk" mythStr))
+                (tags-todo (concat "+#teach" mythStr "|+#rd" mythStr))
+                (tags-todo (concat "+#outWork" mythStr))
                 ;; (tags-todo "WAITING+WorkStudy | SOMEDAY+WorkStudy")
-                (tags-todo "SOMEDAY-#pMyth|WAITING|TODO-#pMyth")
+                (tags-todo "SOMEDAY-#myth-#life|WAITING|TODO-#myth-#life")
                 ;; (tags-todo (concat "+qyk" pString))
                 ;; (tags-todo (concat "+{jys\|zzy}" pString))
                 ;; (tags-todo (concat "+zhx" pString "|+house" pString))
@@ -184,9 +183,9 @@
                 ))
               ("w" "任务安排"
                (
-                (tags-todo (concat "-#pMyth-#pQyk-#pZzy-#pJys-zhx-house" mythStr))
-                (tags-todo (concat "SOMEDAY-#pJys" customStr))
-                (tags-todo (concat "TODO-#pJys" customStr))
+                (tags-todo (concat "-#myth-#life-#teach-#rd-#outWork" mythStr))
+                (tags-todo (concat "SOMEDAY-#teach-#rd-#outWork" customStr))
+                (tags-todo (concat "TODO-#teach-#rd-#outWork" customStr))
                 ))
               )))
 
