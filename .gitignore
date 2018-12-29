@@ -4,3 +4,4 @@ layers/zxchinese/local/eim/*.pl
 layers/zxw3m/local/w3m/*
 *.bak
 *.*~
+*.orig
