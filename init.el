@@ -431,7 +431,7 @@ values."
   ;; ==============zx=============
   ;; (spacemacs//set-monospaced-font   "Source Code Pro" "WenQuanYi Micro Hei Mono" 15 14)
   ;; (spacemacs//set-monospaced-font   "YaHei Consolas Hybrid" "YaHei Consolas Hybrid" 16 16)
-  (org-defkey org-mode-map [(meta return)] 'org-meta-return)
+  ;; (org-defkey org-mode-map [(meta return)] 'org-meta-return)
   (setq mouse-yank-at-point t)     ;在光标位置而不是鼠标点击位置插入剪贴板内容。
   (mouse-avoidance-mode 'animate) ;光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。很好玩阿，这个功能
   (auto-image-file-mode t)        ;打开图片显示功能
